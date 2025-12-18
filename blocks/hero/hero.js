@@ -7,11 +7,45 @@ export default async function decorate(block) {
   hero.className = 'hero-content-wrapper';
 
   const heroWrapper = document.querySelector('.hero-wrapper');
-  const isSplitVariation = heroWrapper.querySelector('.split-media-left, .split-media-right');
+  const isSplitVariation = heroWrapper?.querySelector('.split-media-left, .split-media-right');
 
   const teaserContent = hero.querySelector('div > div');
+  if (!teaserContent) return;
   teaserContent.className = 'hero-teaser-content';
 
+  // Extract all content divs from the block
+  const allDivs = [...block.children];
+  
+  // Parse content structure
+  let imageDiv = null;
+  let eyebrowText = '';
+  let titleText = '';
+  let descriptionText = '';
+  let primaryButtonText = '';
+  let secondaryButtonText = '';
+
+  allDivs.forEach((div) => {
+    const img = div.querySelector('img');
+    const videoLink = div.querySelector('a[href*=".mp4"], a[href*="/adobe/assets/urn:aaid:aem:"]');
+    const textContent = div.textContent?.trim();
+    const aueLabel = div.querySelector('[data-aue-label]')?.getAttribute('data-aue-label');
+
+    if (img && !videoLink) {
+      imageDiv = div;
+    } else if (aueLabel === 'Eyebrow text' || (!eyebrowText && textContent && !imageDiv)) {
+      eyebrowText = textContent;
+    } else if (aueLabel === 'Title' || (!titleText && textContent && eyebrowText)) {
+      titleText = textContent;
+    } else if (aueLabel === 'Description' || (!descriptionText && textContent && titleText)) {
+      descriptionText = textContent;
+    } else if (aueLabel === 'Primary Button Text' || (!primaryButtonText && textContent && descriptionText)) {
+      primaryButtonText = textContent;
+    } else if (aueLabel === 'Secondary Button Text' || (!secondaryButtonText && textContent && primaryButtonText)) {
+      secondaryButtonText = textContent;
+    }
+  });
+
+  // Find images and video
   const images = [...block.querySelectorAll('picture img, img')];
   const videoLink = [...block.querySelectorAll('a[href]')].find(
     (a) => /\.(mp4)$/i.test(a.href) || /\/adobe\/assets\/urn:aaid:aem:/i.test(a.href),
@@ -24,7 +58,11 @@ export default async function decorate(block) {
     if (!primary?.src) return;
     const pic = createOptimizedPicture(primary.src, primary.alt || '');
     pic.classList.add('teaser-picture', 'fade-in', 'is-visible');
-    teaserContent.append(pic);
+    if (isSplitVariation) {
+      teaserContent.append(pic);
+    } else {
+      hero.append(pic);
+    }
   };
 
   const onError = (el, msg) => {
@@ -51,29 +89,20 @@ export default async function decorate(block) {
     const videoSrc = getVideoSrc(videoLink.href);
     if (!videoSrc) return false;
 
-    let regularImg = null;
-    const allImages = [...block.querySelectorAll('picture img, img')];
-    allImages.forEach((img) => {
-      if (!img) return;
-      if (!regularImg) regularImg = img;
-    });
-
-
     const video = Object.assign(document.createElement('video'), {
       className: 'teaser-video fade-in',
       src: videoSrc,
       playsInline: true,
-      muted: false,
+      muted: true,
       loop: true,
-      autoplay: false,
+      autoplay: true,
       controlsList: 'nofullscreen nodownload',
       preload: 'auto',
     });
 
-    if (regularImg) {
-      video.setAttribute('poster', regularImg.src);
+    if (primary) {
+      video.setAttribute('poster', primary.src);
     }
-
 
     video.setAttribute('aria-label', 'Teaser video');
     video.addEventListener('loadeddata', () => {
@@ -84,27 +113,26 @@ export default async function decorate(block) {
     });
 
     const playIcon = document.createElement('img');
-    playIcon.src = '/icons/pause_icon.svg'; // Or .svg, .jpg, etc.
+    playIcon.src = '/icons/pause_icon.svg';
     playIcon.className = 'text-media-play-icon';
-    playIcon.alt = 'Play';
+    playIcon.alt = 'Pause';
 
     playIcon.addEventListener('click', () => {
       if (video.paused || video.ended) {
         video.play();
-        playIcon.src = '/icons/play_icon.svg';
-        playIcon.alt = 'Play';
-      } else {
-        video.pause();
         playIcon.src = '/icons/pause_icon.svg';
         playIcon.alt = 'Pause';
+      } else {
+        video.pause();
+        playIcon.src = '/icons/play_icon.svg';
+        playIcon.alt = 'Play';
       }
     });
 
-    // Create a new image element
     const soundIcon = document.createElement('img');
-    soundIcon.src = '/icons/sound_icon.svg'; // Or .svg, .jpg, etc.
+    soundIcon.src = '/icons/mute_icon.svg';
     soundIcon.className = 'text-media-sound-icon';
-    soundIcon.alt = 'Sound';
+    soundIcon.alt = 'Mute';
 
     soundIcon.addEventListener('click', () => {
       if (video.muted) {
@@ -121,7 +149,6 @@ export default async function decorate(block) {
     const videoWrapper = document.createElement('div');
     videoWrapper.classList.add('video-wrapper');
 
-    // Add the arrow icon
     const iconDiv = document.createElement('div');
     iconDiv.className = 'controls-btn-wrapper';
     iconDiv.appendChild(playIcon);
@@ -152,6 +179,7 @@ export default async function decorate(block) {
 
     g.onload = () => g.classList.add('is-visible');
     onError(g, 'GIF failed — showing fallback image');
+    
     if (isSplitVariation) {
       teaserContent.append(g);
     } else {
@@ -166,6 +194,7 @@ export default async function decorate(block) {
 
     const pic = createOptimizedPicture(primary.src, primary.alt || '');
     pic.classList.add('teaser-picture', 'fade-in', 'is-visible');
+    
     if (isSplitVariation) {
       teaserContent.append(pic);
     } else {
@@ -175,11 +204,14 @@ export default async function decorate(block) {
     return true;
   };
 
+  // Render media (video, gif, or image)
   const rendered = (videoLink && renderVideo())
     || (gif && renderGif())
     || (primary && renderImage());
+  
   if (!rendered) fallbackImage();
 
+  // Clean up old images from DOM
   images.forEach((img) => {
     const picture = img.closest('picture');
     const para = img.closest('p');
@@ -192,56 +224,87 @@ export default async function decorate(block) {
     }
   });
 
+  // Build hero text content
   const heroText = document.createElement('div');
   heroText.className = 'hero-text';
 
-  const text = teaserContent.querySelectorAll('p:not(:has(picture)), h1, h4');
-  const buttons = teaserContent.querySelectorAll('.button-container');
+  // Add empty paragraph for spacing if needed
+  const emptyP = document.createElement('p');
+  heroText.appendChild(emptyP);
 
-  text.forEach((p) => {
-    if (!p.classList.contains('button-container')) {
-      heroText.appendChild(p);
-    }
-  });
-
-  try {
-    if (buttons && buttons.length > 0) {
-      const [primaryBtn, secondaryBtn] = buttons;
-      if (primaryBtn) {
-        const primaryLink = primaryBtn.querySelector('a');
-        const primaryHref = primaryLink?.href;
-        const primaryText = primaryLink?.textContent?.trim();
-
-        if (primaryLink && primaryHref && primaryText) {
-          primaryBtn.classList.add('primary-btn');
-          heroText.appendChild(primaryBtn);
-        } else {
-          primaryBtn.remove();
-        }
-      }
-      if (secondaryBtn) {
-        const secondaryLink = secondaryBtn.querySelector('a');
-        const secondaryHref = secondaryLink?.href;
-        const secondaryText = secondaryLink?.textContent?.trim();
-
-        if (secondaryLink && secondaryHref && secondaryText) {
-          secondaryBtn.classList.add('secondary-btn');
-          heroText.appendChild(secondaryBtn);
-        } else {
-          secondaryBtn.remove();
-        }
-      }
-    }
-  } catch (error) {
-    console.error('Error processing buttons:', error);
+  // Add eyebrow text
+  if (eyebrowText) {
+    const eyebrow = document.createElement('p');
+    eyebrow.textContent = eyebrowText;
+    heroText.appendChild(eyebrow);
   }
 
+  // Add title
+  if (titleText) {
+    const title = document.createElement('h1');
+    title.textContent = titleText;
+    // Create ID from title
+    const titleId = titleText.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    title.id = titleId;
+    heroText.appendChild(title);
+  }
+
+  // Add description
+  if (descriptionText) {
+    const description = document.createElement('p');
+    description.textContent = descriptionText;
+    heroText.appendChild(description);
+  }
+
+  // Add primary button
+  if (primaryButtonText) {
+    const primaryBtnContainer = document.createElement('p');
+    primaryBtnContainer.className = 'button-container primary-btn';
+    
+    const primaryLink = document.createElement('a');
+    primaryLink.href = 'https://www.wwt.com/';
+    primaryLink.title = primaryButtonText;
+    primaryLink.className = 'button';
+    primaryLink.textContent = primaryButtonText;
+    
+    primaryBtnContainer.appendChild(primaryLink);
+    heroText.appendChild(primaryBtnContainer);
+  }
+
+  // Add secondary button
+  if (secondaryButtonText) {
+    const secondaryBtnContainer = document.createElement('p');
+    secondaryBtnContainer.className = 'button-container secondary-btn';
+    
+    const em = document.createElement('em');
+    const secondaryLink = document.createElement('a');
+    secondaryLink.href = 'https://www.wwt.com/';
+    secondaryLink.title = secondaryButtonText;
+    secondaryLink.className = 'button secondary';
+    secondaryLink.textContent = secondaryButtonText;
+    
+    em.appendChild(secondaryLink);
+    secondaryBtnContainer.appendChild(em);
+    heroText.appendChild(secondaryBtnContainer);
+  }
+
+  // Clear existing content and append hero text
+  teaserContent.innerHTML = '';
   teaserContent.appendChild(heroText);
 
+  // Add breadcrumbs if needed
   const hasRenderedBreadcrumbs = document.querySelector('.breadcrumbs');
   if (getMetadata('breadcrumbs').toLowerCase() === 'true' && !hasRenderedBreadcrumbs) {
-    const breadcrumbs = document.createElement('div');
-    breadcrumbs.append(createBreadcrumb());
-    heroWrapper.append(breadcrumbs);
+    const breadcrumbsWrapper = document.createElement('div');
+    breadcrumbsWrapper.className = 'breadcrumbs-wrapper';
+    
+    const nav = document.createElement('nav');
+    nav.className = 'breadcrumbs';
+    nav.appendChild(createBreadcrumb());
+    
+    breadcrumbsWrapper.appendChild(nav);
+    
+    // Insert after hero-wrapper
+    heroWrapper.insertAdjacentElement('afterend', breadcrumbsWrapper);
   }
 }
