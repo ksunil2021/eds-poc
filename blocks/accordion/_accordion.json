@@ -4,10 +4,14 @@
       "title": "Accordion",
       "id": "accordion",
       "plugins": {
-        "da": {
-          "name": "accordion",
-          "rows": 1,
-          "columns": 2
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Accordion",
+              "model": "accordion"
+            }
+          }
         }
       }
     },
@@ -15,10 +19,14 @@
       "title": "Accordion Item",
       "id": "accordion-item",
       "plugins": {
-        "da": {
-          "name": "accordion-item",
-          "rows": 2,
-          "columns": 0
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Accordion-Item",
+              "model": "accordion-item"
+            }
+          }
         }
       }
     }
@@ -30,9 +38,9 @@
         {
           "component": "select",
           "name": "classes",
-          "value": "",
           "label": "Accordion Variant",
           "valueType": "string",
+          "value": "",
           "options": [
             {
               "name": "default",
@@ -51,68 +59,66 @@
       "fields": [
         {
           "component": "richtext",
+          "name": "summaryText",
+          "label": "Summary Text",
           "valueType": "string",
-          "name": "div:nth-child(1)>p:nth-child(1)",
-          "value": "",
-          "label": "Summary",
-          "required": true
+          "required": true,
+          "value": ""
         },
         {
           "component": "richtext",
+          "name": "subheaderText",
+          "label": "SubHeader Text",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(1)",
-          "value": "",
-          "label": "Sub Header",
-          "required": false
+          "required": false,
+          "value": ""
         },
         {
           "component": "richtext",
-          "valueType": "string",
-          "name": "div:nth-child(2)>ul:nth-child(2)",
-          "value": "",
+          "name": "listItems",
           "label": "List Items",
-          "required": false
+          "valueType": "string",
+          "required": false,
+          "value": ""
         },
         {
           "component": "reference",
+          "name": "image",
+          "label": "Image",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(3)>a:nth-child(1)[href]",
-          "value": "",
-          "label": "Image/Video/Gif",
-          "required": true
+          "required": true,
+          "value": ""
         },
         {
           "component": "text",
+          "name": "imageAlt",
+          "label": "Image Alt",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(3)>a:nth-child(1)[alt]",
-          "value": "",
-          "label": "Alt Text",
-          "required": false
+          "value": ""
         },
         {
           "component": "text",
+          "name": "ctaUrl",
+          "label": "CTA Url",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(4)>a:nth-child(1)[href]",
-          "value": "",
-          "label": "CTA URL",
-          "required": false
+          "required": false,
+          "value": ""
         },
         {
           "component": "text",
+          "name": "ctaLabel",
+          "label": "CTA Label",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(4)>a:nth-child(1)",
-          "value": "",
-          "label": "CTA Label ",
-          "required": false
-            
+          "required": false,
+          "value": ""
         },
         {
           "component": "text",
-          "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(5)>em:nth-child(1)",
-          "value": "",
+          "name": "caption",
           "label": "Caption",
-          "required": false
+          "valueType": "string",
+          "required": false,
+          "value": ""
         }
       ]
     }
@@ -120,9 +126,7 @@
   "filters": [
     {
       "id": "accordion",
-      "components": [
-        "accordion-item"
-      ]
+      "components": ["accordion-item"]
     }
   ]
 }

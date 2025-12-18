@@ -20,6 +20,12 @@
     ]
   },
   {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -38,6 +44,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "partner-logo",
+    "components": [
+      "partner-logo-item"
     ]
   }
 ]

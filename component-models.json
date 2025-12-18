@@ -142,6 +142,96 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Accordion Variant",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Media layout",
+            "value": "media-layout"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "summaryText",
+        "label": "Summary Text",
+        "valueType": "string",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "subheaderText",
+        "label": "SubHeader Text",
+        "valueType": "string",
+        "required": false,
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "listItems",
+        "label": "List Items",
+        "valueType": "string",
+        "required": false,
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaUrl",
+        "label": "CTA Url",
+        "valueType": "string",
+        "required": false,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "label": "CTA Label",
+        "valueType": "string",
+        "required": false,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "caption",
+        "label": "Caption",
+        "valueType": "string",
+        "required": false,
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -216,6 +306,40 @@
     ]
   },
   {
+    "id": "partner-logo",
+    "fields": []
+  },
+  {
+    "id": "partner-logo-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
+        "label": "Logo",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
+        "label": "Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(2)>p:nth-child(1)>a:nth-child(1)[href]",
+        "label": "URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(3)>p:nth-child(1)",
+        "label": "Categories"
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {
@@ -251,6 +375,81 @@
         "name": "clientName",
         "label": "Client Name",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Teaser Variant",
+        "valueType": "string",
+        "value": "",
+        "required": false,
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Media Left Aligned",
+            "value": "media-left-aligned"
+          },
+          {
+            "name": "Media Right Aligned",
+            "value": "media-right-aligned"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
+        "value": "",
+        "label": "Image/Video/Gif",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
+        "value": "",
+        "label": "Alt Text",
+        "required": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(2)",
+        "value": "",
+        "label": "Title",
+        "required": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(3)",
+        "value": "",
+        "label": "Description",
+        "required": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)",
+        "value": "",
+        "label": "Button Text",
+        "required": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)[href]",
+        "value": "",
+        "label": "Button Link",
+        "required": false
       }
     ]
   }
