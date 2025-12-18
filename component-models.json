@@ -405,51 +405,50 @@
       },
       {
         "component": "reference",
+        "name": "image",
+        "label": "Image",
         "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
-        "value": "",
-        "label": "Image/Video/Gif",
-        "required": true
+        "required": true,
+        "value": ""
       },
       {
         "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
-        "value": "",
-        "label": "Alt Text",
-        "required": false
+        "value": ""
       },
       {
         "component": "richtext",
-        "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(2)",
-        "value": "",
+        "name": "title",
         "label": "Title",
-        "required": false
+        "valueType": "string",
+        "required": true,
+        "value": ""
       },
       {
         "component": "richtext",
-        "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(3)",
-        "value": "",
+        "name": "description",
         "label": "Description",
-        "required": false
+        "valueType": "string",
+        "required": false,
+        "value": ""
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)",
-        "value": "",
+        "name": "buttonText",
         "label": "Button Text",
-        "required": false
+        "valueType": "string",
+        "required": false,
+        "value": ""
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)[href]",
-        "value": "",
+        "name": "buttonLink",
         "label": "Button Link",
-        "required": false
+        "valueType": "string",
+        "required": false,
+        "value": ""
       }
     ]
   }
