@@ -1,0 +1,248 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-8);
+}
+
+.accordion details summary {
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid var(--color-gray-secondary);
+  padding: 10px 0 11px;
+}
+
+.accordion-item-body p {
+  margin: 0;
+}
+
+.accordion details summary p {
+  font-size: var(--scale-paragraph-large);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.688rem;
+  margin: 0;
+}
+
+.accordion details[open] summary {
+  border-bottom: 1px solid var(--color-blue-brand);
+  color: var(--color-blue-brand);
+}
+
+.accordion details summary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background: url("../../icons/plus_icon.svg") no-repeat center / contain;
+  transform: translateY(-50%);
+}
+
+.accordion details[open] summary::after {
+  background: url("../../icons/minus_icon.svg") no-repeat center / contain;
+}
+
+.accordion.media-layout details summary {
+  border: none;
+  padding-left: var(--size-16);
+}
+
+.accordion.media-layout details summary::after {
+  display: none;
+}
+
+.accordion details:not([open]) summary:hover::after {
+  filter: brightness(1.1);
+}
+
+.accordion.media-layout details summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--color-gray-secondary);
+}
+
+.accordion.media-layout details[open] summary::before {
+  border-left: 1px solid var(--color-blue-brand);
+}
+
+.accordion details .accordion-item-body {
+  padding-top: var(--size-16);
+}
+
+.accordion.media-layout details .accordion-item-body {
+  padding: 0;
+}
+
+.accordion.media-layout .accordion-item-body .my-wrapper {
+  padding-left: var(--size-16);
+}
+
+.accordion-image-wrapper {
+  position: relative;
+}
+
+.accordion details .accordion-item-body p:first-child {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--scale-paragraph-small);
+  line-height: 1.313rem;
+}
+
+.accordion details .accordion-item-body ul {
+  padding: 0 var(--size-24);
+  margin: 0 0 16px;
+}
+
+.accordion-image-wrapper img,
+.accordion-image-wrapper video,
+.accordion-image-wrapper .accordion-media-gif,
+.accordion-media-container img,
+.accordion-media-container video,
+.accordion-media-container .accordion-media-gif {
+  object-fit: cover;
+  border-radius: var(--size-4);
+  width: 100%;
+  cursor: pointer;
+}
+
+.accordion-media-container .accordion-image-wrapper,
+.accordion-item-body .accordion-image-wrapper {
+  margin-bottom: 8px;
+}
+
+.accordion-media-container .accordion-media-info .accordion-caption {
+  margin: 0;
+}
+
+.accordion-item-body .accordion-image-wrapper img,
+.accordion-item-body .accordion-image-wrapper video,
+.accordion-item-body .accordion-image-wrapper .accordion-media-gif {
+  aspect-ratio: 1/1;
+}
+
+.accordion.media-layout .accordion-item-body > .accordion-image-wrapper {
+  margin-top: 16px;
+}
+
+/* Button container */
+.accordion-item-body .button-container,
+.accordion-media-container .button-container {
+  position: absolute;
+  bottom: 6px;
+  right: 0;
+  z-index: 1;
+  padding: var(--size-4) 0 0 var(--size-4);
+  border-radius: var(--corner-radius-cr-4) 0 var(--corner-radius-cr-2) 0;
+  background: var(--color-white);
+}
+
+.accordion-item-body .button-container .button,
+.accordion-media-container .button-container .button {
+  margin: 0;
+  display: flex;
+  gap: var(--size-8);
+  font-size: var(--size-16);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-charcoal-brand);
+  background: var(--color-teal-500);
+  border-radius: var(--corner-radius-cr-2);
+  padding: var(--size-4) var(--size-4) var(--size-4) var(--size-12);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion-item-body .button-container .button::after,
+.accordion-media-container .button-container .button::after {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background: url("../../icons/arrow.svg") no-repeat center / contain;
+  flex-shrink: 0;
+}
+
+.accordion-item-body .button-container::before,
+.accordion-item-body .button-container::after,
+.accordion-media-container .button-container::before,
+.accordion-media-container .button-container::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: url("../../icons/subtract.svg") no-repeat center / contain;
+}
+
+.accordion-item-body .button-container::after,
+.accordion-media-container .button-container::after {
+  top: -8px;
+  right: 0;
+}
+
+.accordion-item-body .button-container::before,
+.accordion-media-container .button-container::before {
+  bottom: 0;
+  left: -8px;
+}
+
+@media (width >= 600px) {
+  .accordion-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--size-16);
+  }
+
+  .accordion-wrapper > .accordion,
+  .accordion-media-container {
+    flex: 1 1 50%;
+  }
+
+  .accordion details .accordion-item-body ul {
+    margin: 0;
+  }
+
+  .accordion details .accordion-item-body p:first-child {
+    padding-bottom: var(--size-8);
+  }
+
+  .accordion-media-container:hover .button-container .button {
+    background-color: var(--color-mint-brand);
+  }
+
+  .accordion-media-container .accordion-media-image,
+  .accordion-media-container .accordion-media-video,
+  .accordion-media-container .accordion-media-gif {
+    aspect-ratio: 1/1;
+  }
+}
+
+@media (width >= 900px) {
+  .accordion-wrapper {
+    gap: var(--size-24);
+  }
+
+  .accordion-media-container {
+    flex: 0 0 60%;
+  }
+
+  .accordion-media-container .accordion-media-image,
+  .accordion-media-container .accordion-media-video,
+  .accordion-media-container .accordion-media-gif {
+    aspect-ratio: auto;
+  }
+
+  .accordion.media-layout {
+    position: relative;
+  }
+
+  .accordion.media-layout::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid var(--color-gray-secondary);
+  }
+}

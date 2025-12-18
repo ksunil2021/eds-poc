@@ -1,0 +1,128 @@
+{
+  "definitions": [
+    {
+      "title": "Accordion",
+      "id": "accordion",
+      "plugins": {
+        "da": {
+          "name": "accordion",
+          "rows": 1,
+          "columns": 2
+        }
+      }
+    },
+    {
+      "title": "Accordion Item",
+      "id": "accordion-item",
+      "plugins": {
+        "da": {
+          "name": "accordion-item",
+          "rows": 2,
+          "columns": 0
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "accordion",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Accordion Variant",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "default",
+              "value": ""
+            },
+            {
+              "name": "Media layout",
+              "value": "media-layout"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accordion-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "div:nth-child(1)>p:nth-child(1)",
+          "value": "",
+          "label": "Summary",
+          "required": true
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(1)",
+          "value": "",
+          "label": "Sub Header",
+          "required": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "div:nth-child(2)>ul:nth-child(2)",
+          "value": "",
+          "label": "List Items",
+          "required": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(3)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "Image/Video/Gif",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(3)>a:nth-child(1)[alt]",
+          "value": "",
+          "label": "Alt Text",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(4)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "CTA URL",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(4)>a:nth-child(1)",
+          "value": "",
+          "label": "CTA Label ",
+          "required": false
+            
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(2)>p:nth-child(5)>em:nth-child(1)",
+          "value": "",
+          "label": "Caption",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "accordion",
+      "components": [
+        "accordion-item"
+      ]
+    }
+  ]
+}

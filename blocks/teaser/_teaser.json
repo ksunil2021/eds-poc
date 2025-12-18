@@ -1,0 +1,92 @@
+{
+  "definitions": [
+    {
+      "title": "Teaser",
+      "id": "teaser",
+      "plugins": {
+        "da": {
+          "unsafeHTML": "<div class=\"teaser\"><div><div><p><a href=\"\">Image</a></p></div><div></div><div></div><div><p><a href=\"\">View More</a></p></div></div></div>"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "teaser",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Teaser Variant",
+          "valueType": "string",
+          "value": "",
+          "required": false,
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Media Left Aligned",
+              "value": "media-left-aligned"
+            },
+            {
+              "name": "Media Right Aligned",
+              "value": "media-right-aligned"
+            }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "Image/Video/Gif",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
+          "value": "",
+          "label": "Alt Text",
+          "required": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(2)",
+          "value": "",
+          "label": "Title",
+          "required": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(3)",
+          "value": "",
+          "label": "Description",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)",
+          "value": "",
+          "label": "Button Text",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(4)>p:nth-child(1)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "Button Link",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
+ 

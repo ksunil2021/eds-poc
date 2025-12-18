@@ -1,0 +1,108 @@
+.partner-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--size-8);
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.partner-filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-4);
+  padding: var(--size-4) var(--size-4) var(--size-4) var(--size-16);
+  border-radius: var(--size-16);
+  font-size: var(--size-16);
+  cursor: pointer;
+  background-color: var(--color-white);
+  color: var(--color-blue);
+  border: 1px solid var(--color-darker);
+  transition: background-color 0.2s ease;
+}
+
+.partner-filter-btn::after {
+  content: "";
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background-image: url("../../icons/check.svg"); 
+}
+
+.partner-filter-btn.active::after {
+  filter: brightness(0) invert(1);
+  background: url("../../icons/cross.svg") no-repeat center / contain;
+  content: "";
+  width: 24px;
+  height: 14px;
+}
+
+.partner-filter-btn.active {
+  background-color: var(--color-lightblue);
+  color: var(--color-white);
+}
+
+.partner-filter-btn:hover {
+  background-color: var( --color-gray-cool);
+  transform: none;
+  box-shadow: none;
+}
+
+.partner-filter-btn.active:hover {
+  background-color: var( --color-blue);
+}
+
+.partner-filter-btn:focus {
+  outline: none;
+  outline-offset: 0;
+}
+
+.partner-logos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--size-16);
+}
+
+.partner-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 172px;
+  width: 100%;
+  padding: var(--size-24);
+  background: var(--color-gray-1);
+  border-radius: var(--size-8);
+}
+
+.partner-logo-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+
+@media (width>= 600px) {
+  .partner-logos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .partner-logo-item:hover img {
+    transform: scale(1.1);
+  }
+}
+
+@media (width>= 900px) {
+  .partner-logos {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--size-24);
+  }
+
+  .partner-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-8);
+    justify-content: center;
+  }
+}
