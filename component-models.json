@@ -306,40 +306,28 @@
     ]
   },
   {
-    "id": "partner-logo",
-    "fields": []
-  },
-  {
     "id": "partner-logo-item",
     "fields": [
       {
         "component": "reference",
+        "valueType": "string",
         "name": "image",
         "label": "Image",
-        "valueType": "string",
-        "required": true,
-        "value": ""
+        "multi": false
       },
       {
         "component": "text",
-        "name": "imageAlt",
-        "label": "Image Alt",
-        "valueType": "string",
-        "value": ""
+        "name": "text",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "url",
+        "name": "text",
+        "value": "",
         "label": "URL",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "categories",
-        "label": "Categories",
-        "valueType": "string",
-        "value": ""
+        "valueType": "string"
       }
     ]
   },
