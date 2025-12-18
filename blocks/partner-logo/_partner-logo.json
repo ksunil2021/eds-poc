@@ -1,20 +1,32 @@
 {
   "definitions": [
     {
-      "title": "Partner Logo",
       "id": "partner-logo",
+      "title": "Partner Logo",
       "plugins": {
-        "da": {
-          "unsafeHTML": "<div class=\"partner-logo\"><div><div><p><a href=\"\">Image</a></p></div><div><p><a href=\"https://www.wwt.com/\">https://www.wwt.com/</a></p></div><div><p>Security</p></div></div></div>"
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Partner Logo",
+              "model": "partner-logo"
+            }
+          }
         }
       }
     },
     {
-      "title": "Partner Logo Item",
       "id": "partner-logo-item",
+      "title": "Partner Logo Item",
       "plugins": {
-        "da": {
-          "unsafeHTML": "<div><div><p><a href=\"\">Image</a></p></div><div><p><a href=\"https://www.wwt.com/\">https://www.wwt.com/</a></p></div><div><p>Security</p></div></div>"
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Partner Logo Item",
+              "model": "partner-logo-item"
+            }
+          }
         }
       }
     }
@@ -29,28 +41,32 @@
       "fields": [
         {
           "component": "reference",
+          "name": "image",
+          "label": "Image",
           "valueType": "string",
-          "name": "div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
-          "label": "Logo",
-          "required": true
+          "required": true,
+          "value": ""
         },
         {
           "component": "text",
+          "name": "imageAlt",
+          "label": "Image Alt",
           "valueType": "string",
-          "name": "div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
-          "label": "Alt Text"
+          "value": ""
         },
         {
           "component": "text",
+          "name": "url",
+          "label": "URL",
           "valueType": "string",
-          "name": "div:nth-child(2)>p:nth-child(1)>a:nth-child(1)[href]",
-          "label": "URL"
+          "value": ""
         },
         {
           "component": "text",
+          "name": "categories",
+          "label": "Categories",
           "valueType": "string",
-          "name": "div:nth-child(3)>p:nth-child(1)",
-          "label": "Categories"
+          "value": ""
         }
       ]
     }
@@ -58,8 +74,9 @@
   "filters": [
     {
       "id": "partner-logo",
-      "components": ["partner-logo-item"]
+      "components": [
+        "partner-logo-item"
+      ]
     }
   ]
 }
- 
