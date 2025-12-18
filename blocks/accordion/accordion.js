@@ -1,12 +1,14 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const originalHTML = block.innerHTML;
 
+  /* ---------------- helpers ---------------- */
+
   const getVideoSrc = (url = '') => {
     if (!url) return '';
     if (!url.includes('/adobe/assets/urn:aaid:aem:')) return url.endsWith('.mp4') ? url : '';
-
     if (url.includes('/renditions/original/as/')) return url;
     if (url.includes('/as/')) return url.replace('/as/', '/renditions/original/as/');
     return `${url}/renditions/original/as/video.mp4`;
@@ -23,12 +25,15 @@ export default function decorate(block) {
       autoplay: true,
       preload: 'auto',
     });
-    v.addEventListener('loadeddata', () => v.play().catch(() => { v.controls = true; }));
+    v.addEventListener('loadeddata', () => v.play().catch(() => {
+      v.controls = true;
+    }));
     return v;
   };
 
   const createMedia = (media) => {
     if (media.videoLink) return createVideo(media.videoLink.href);
+
     if (media.gif) {
       return Object.assign(new Image(), {
         src: media.gif.src,
@@ -36,13 +41,18 @@ export default function decorate(block) {
         className: 'accordion-media-gif fade-in',
       });
     }
+
     if (media.img) {
       const pic = createOptimizedPicture(media.img.src, media.img.alt || '');
       pic.classList.add('accordion-media-image', 'fade-in', 'is-visible');
+      moveInstrumentation(media.img, pic.querySelector('img'));
       return pic;
     }
+
     return null;
   };
+
+  /* ---------------- content helpers ---------------- */
 
   const wrapBodyContent = () => {
     block.querySelectorAll('.accordion-item-body').forEach((body) => {
@@ -68,21 +78,27 @@ export default function decorate(block) {
     let caption = body.querySelector('p.accordion-caption');
     if (!caption) {
       caption = [...body.querySelectorAll('p')].find(
-        (p) => !p.querySelector('picture')
-          && !p.contains(viewMore)
-          && !p.contains(videoLink)
-          && p !== imgWrapper
-          && p.textContent.trim()
-          && p.textContent !== 'SUB HEADER',
+        (p) =>
+          !p.querySelector('picture') &&
+          !p.contains(viewMore) &&
+          !p.contains(videoLink) &&
+          p !== imgWrapper &&
+          p.textContent.trim()
       );
     }
 
     [imgWrapper, gif, videoLink, viewMore?.closest('p'), caption].forEach((el) => el?.remove());
 
     return {
-      img, gif, videoLink, viewMore, captionPara: caption,
+      img,
+      gif,
+      videoLink,
+      viewMore,
+      captionPara: caption,
     };
   };
+
+  /* ---------------- init ---------------- */
 
   const init = () => {
     const isMobile = window.matchMedia('(max-width: 599px)').matches;
@@ -97,11 +113,18 @@ export default function decorate(block) {
       details.className = 'accordion-item';
       details.dataset.mediaIndex = i;
 
+      // 🔹 move instrumentation row → details
+      moveInstrumentation(row, details);
+
       const summary = document.createElement('summary');
       summary.className = 'accordion-item-label';
+
+      // 🔹 move instrumentation label → summary
+      moveInstrumentation(label, summary);
       summary.append(...label.childNodes);
 
       body.className = 'accordion-item-body';
+
       details.append(summary, body);
       row.replaceWith(details);
 
@@ -119,6 +142,8 @@ export default function decorate(block) {
         if (open) (accordions[i + 1] || accordions[0]).details.setAttribute('open', '');
       });
     });
+
+    /* ---------------- desktop ---------------- */
 
     if (!isMobile) {
       const container = document.createElement('div');
@@ -157,9 +182,7 @@ export default function decorate(block) {
 
       accordions.forEach(({ details, media }) => {
         details.querySelector('summary').addEventListener('click', () => {
-          setTimeout(() => {
-            if (details.hasAttribute('open')) updateMedia(media);
-          }, 0);
+          if (details.hasAttribute('open')) updateMedia(media);
         });
       });
 
@@ -167,6 +190,8 @@ export default function decorate(block) {
       updateMedia(accordions[0].media);
       return;
     }
+
+    /* ---------------- mobile ---------------- */
 
     accordions.forEach(({ details, media }, index) => {
       const body = details.querySelector('.accordion-item-body');
