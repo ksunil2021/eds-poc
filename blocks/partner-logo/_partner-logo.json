@@ -45,13 +45,6 @@
         },
         {
           "component": "text",
-          "name": "imageAlt",
-          "label": "Image Alt",
-          "valueType": "string",
-          "value": ""
-        },
-        {
-          "component": "text",
           "name": "url",
           "label": "URL",
           "valueType": "string",
