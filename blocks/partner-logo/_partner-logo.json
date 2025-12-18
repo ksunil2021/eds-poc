@@ -44,14 +44,14 @@
         },
         {
           "component": "text",
-          "name": "text",
+          "name": "title",
           "value": "",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "text",
+          "name": "url",
           "value": "",
           "label": "URL",
           "valueType": "string"
