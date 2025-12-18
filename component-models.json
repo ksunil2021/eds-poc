@@ -214,5 +214,44 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "quote",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "quoteText",
+        "label": "Quote Text",
+        "required": true,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "brandName",
+        "label": "Brand Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "clientName",
+        "label": "Client Name",
+        "valueType": "string"
+      }
+    ]
   }
 ]
