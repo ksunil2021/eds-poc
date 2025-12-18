@@ -5,15 +5,56 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
+  padding: 32px 16px;
   min-height: 300px;
+}
+
+.hero.split-media-right .hero-text,
+.hero.split-media-left .hero-text {
+  /* max-width: var(--container-size); */
+   background: var(--color-charcoal-brand);
 }
 
 .hero h1 {
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
+  padding-top: 24px;
   color: var(--background-color);
+}
+
+.hero .hero-text {
+  padding-top: 320px;
+}
+
+.hero .hero-text > p,
+.hero .hero-text > h4 {
+  color: var(--color-secondary-500);
+}
+
+.hero .hero-text h1,
+.hero .hero-text h1 + p {
+  color: var(--color-white);
+  text-align: left;
+}
+
+.hero .hero-text .h1 + p {
+  font-size: var(--size-16, 16px);
+}
+
+.hero .button-container a {
+  width: 100%;
+}
+
+.hero .primary-btn a {
+  color: var(--color-black);
+}
+
+.hero .secondary-btn a {
+  color: var(--color-white);
+}
+
+.hero .hero-teaser-content > p {
+  margin: 0;
 }
 
 .hero picture {
@@ -30,8 +71,269 @@
   height: 100%;
 }
 
+.hero.split-media-right,
+.hero.split-media-left {
+  padding: 0;
+}
+
+.hero.split-media-right picture,
+.hero.split-media-left picture {
+  position: static;
+}
+
+.hero.split-media-right img,
+.hero.split-media-left img {
+  display: block;
+  position: static;
+      align-self: stretch;
+    aspect-ratio: 3 / 4;
+    
+}
+
+.hero.split-media-left .hero-text,
+.hero.split-media-right .hero-text {
+  padding: 32px 16px;
+}
+
+.hero-wrapper .breadcrumbs {
+  display: none;
+}
+
+.hero.split-media-right video ,
+.hero.split-media-left video {
+  width: 100%;
+  display: block;
+}
+
+.hero .video-wrapper {
+  position: relative;
+}
+
+.hero .controls-btn-wrapper img {
+  width: 24px;
+  height: 24px;
+}
+
+.hero .controls-btn-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 4px;
+  padding-top: 4px;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  border-radius: var(--corner-radius-cr-4) 0 var(--corner-radius-cr-2) 0;
+  background: var(--color-charcoal-brand);
+}
+
+.hero .controls-btn-wrapper::before,
+.hero .controls-btn-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  mask: url('../../icons/subtract.svg') no-repeat center;
+  background-color: var(--color-charcoal-brand);
+}
+
+.hero .controls-btn-wrapper::after {
+  top: -8px;
+}
+
+.hero .controls-btn-wrapper::before {
+  bottom: 0;
+  left: -8px;
+}
+
+.hero .text-media-play-icon,
+.hero .text-media-sound-icon {
+  text-decoration: none;
+  font-size: var(--scale-paragraph-small) 0.875rem;
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--corner-radius-cr-2);
+  background: var(--color-teal-500);
+  display: flex;
+  padding: var(--size-4);
+  margin: 2px;
+  align-items: center;
+  color: var(--color-charcoal-brand);
+  text-align: left;
+}
+
+.hero.split-media-right:has(video.teaser-video),
+.hero.split-media-left:has(video.teaser-video) {
+  padding: 96px 16px 0 16px;
+  background-color: var(--color-charcoal-brand);
+}
+
+
+@media (width >= 600px) {
+  .hero {
+    padding: 48px 32px;
+  }
+
+  .hero.split-media-right img,
+  .hero.split-media-left img {
+  aspect-ratio: auto;
+}
+
+  .hero .button-container {
+    display: inline-block;
+    margin-right: var(--size-12, 12px);
+    vertical-align: middle;
+  }
+
+  .hero .video-wrapper {
+  padding: 112px 16px 0 16px;
+  }
+
+  .hero .controls-btn-wrapper {
+    bottom: -1px;
+    right: 14px;
+  }
+/* Breadcrumbs block styling */
+.hero-wrapper .breadcrumbs {
+  max-width: var(--container-size);
+  display: flex;
+  padding: var(--size-12) var(--size-64);
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-page);
+}
+
+/* Remove default list styling */
+.hero-wrapper .breadcrumbs ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+/* Style list items */
+.hero-wrapper .breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-family: var(--font-name-body);
+  font-size: var(--scale-paragraph-small);
+  line-height: var(--paragraph-small-line-height);
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Remove the default numbering */
+.hero-wrapper.breadcrumbs ol {
+  counter-reset: none;
+}
+
+.hero-wrapper .breadcrumbs li::before {
+  content: none;
+}
+
+/* Add separator between items */
+.hero-wrapper .breadcrumbs li:not(:last-child)::after {
+  content: "/";
+  margin: 0 10px;
+  color: var(--color-gray-body);
+}
+
+/* Style links */
+.hero-wrapper .breadcrumbs a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.hero-wrapper .breadcrumbs a:hover {
+  color: var(--text-action-hover);
+  text-decoration: underline;
+}
+
+/* Style current page (non-clickable) */
+.hero-wrapper .breadcrumbs ol li[aria-current="page"] {
+  color: var(--color-gray-body);
+  font-weight: var(--font-weight-bold);
+}
+}
+
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    padding: 40px 64px;
   }
+
+  .hero.teaser-text-right-aligned .hero-teaser-content {
+    text-align: right;
+  }
+
+  .hero .hero-text {
+    padding: 112px 64px 0 0;
+    width: 50%;
+    display: inline-block;
+    text-align: left;
+    max-width: 600px;
+  }
+
+  .hero.split-media-left picture,
+  .hero.split-media-right picture {
+    position: static;
+    display: flex;
+    height: auto;
+    aspect-ratio: 734.64 / 550.98;
+  }
+
+   .hero {
+    padding: 0;
+  }
+
+  .hero.split-media-left .hero-teaser-content,
+  .hero.split-media-right .hero-teaser-content {
+    display: flex;
+  }
+
+  .hero.split-media-right .hero-teaser-content {
+    flex-direction: row-reverse;
+  }
+
+  .hero.hero.teaser-text-right-aligned .hero-text {
+    padding: 112px 64px 0 0;
+  }
+
+  .hero.split-media-left .hero-text,
+  .hero.teaser-text-right-aligned .hero-text {
+    padding: 112px 64px 24px 24px;
+  }
+
+  .hero.split-media-right .hero-text ,
+  .hero.teaser-text-left-aligned .hero-text {
+    padding: 112px 24px 24px 64px;
+  }
+
+  .hero.split-media-right video, .hero.split-media-left video {
+    display: flex;
+    width: 677px;
+    height: 381px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    aspect-ratio: 677 / 381;
+  }
+
+  .hero .controls-btn-wrapper {
+    bottom: 48px;
+    right: 32px;
+  }
+
+  .hero .video-wrapper {
+    padding: 112px 32px 0 48px;
+  }
+
 }

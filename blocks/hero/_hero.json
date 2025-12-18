@@ -4,14 +4,8 @@
       "title": "Hero",
       "id": "hero",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Hero",
-              "model": "hero"
-            }
-          }
+        "da": {
+          "unsafeHTML": "<div class=\"hero teaser-text-right-aligned\"><div><div><p><a href=\"https://delivery-p155402-e1648455.adobeaemcloud.com/adobe/assets/urn:aaid:aem:e50b2c29-63c6-4606-9e8c-399129b14de0/as/accordion-1.png\" >Image</a></p><p>HOW WE DELIVER</p><h1 id=\"explore-our-insights\">Explore Our Insights</h1><p>ePlus provides you the strategic perspective and actionable insights you need to navigate complexity with confidence, to manage technology—and to master it.</p><p><a href=\"\">Primary Button</a></p><p><em><a href=\"\">Secondary Button</a></em></p></div></div></div>"
         }
       }
     }
@@ -23,24 +17,96 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "image",
-          "label": "Image",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
+          "label": "Image/Video",
+          "required": true,
+          "multi": true
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(2)>a:nth-child(1)[href]",
+          "label": "Video Thumbnail",
           "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "imageAlt",
-          "label": "Alt",
-          "value": ""
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[alt]",
+          "label": "Alt text",
+          "value": "",
+          "required": false
         },
         {
-          "component": "richtext",
-          "name": "text",
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(2)",
+          "label": "Eyebrow text",
           "value": "",
-          "label": "Text",
-          "valueType": "string"
-        }
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>h1:nth-child(3)",
+          "value": "",
+          "label": "Title",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(4)",
+          "value": "",
+          "label": "Description",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(5)>a:nth-child(1)",
+          "value": "",
+          "label": "Primary Button Text",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(5)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "Primary Button Link",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(6)>em:nth-child(1)>a:nth-child(1)",
+          "value": "",
+          "label": "Secondary Button Text",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(6)>em:nth-child(1)>a:nth-child(1)[href]",
+          "value": "",
+          "label": "Secondary Button Link",
+          "required": false
+        },
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Hero Teaser - Variations",
+          "valueType": "string",
+          "value": "",
+          "required": false,
+          "options": [
+            { "name": "Split media - left", "value": "split-media-left" },
+            { "name": "Split media - right", "value": "split-media-right" },
+            { "name": "Text aligned - left", "value": "teaser-text-left-aligned" },
+            { "name": "Text aligned - right", "value": "teaser-text-right-aligned" }
+           ]
+          }
       ]
     }
   ],
