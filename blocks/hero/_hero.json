@@ -29,21 +29,6 @@
           "multi": false
         },
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "thumbnail",
-          "label": "Video Thumbnail",
-          "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageAlt",
-          "label": "Alt text",
-          "value": "",
-          "required": false
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "eyebrowText",
@@ -74,45 +59,7 @@
           "value": "",
           "label": "Primary Button Text",
           "required": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-           "name": "primaryButtonLink",
-          "value": "",
-          "label": "Primary Button Link",
-          "required": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-           "name": "secondaryButton",
-          "value": "",
-          "label": "Secondary Button Text",
-          "required": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-           "name": "secondaryButtonLink",
-          "value": "",
-          "label": "Secondary Button Link",
-          "required": false
-        },
-        {
-          "component": "select",
-          "name": "classes",
-          "label": "Hero Teaser - Variations",
-          "valueType": "string",
-          "value": "",
-          "required": false,
-          "options": [
-            { "name": "Split media - left", "value": "split-media-left" },
-            { "name": "Split media - right", "value": "split-media-right" },
-            { "name": "Text aligned - left", "value": "teaser-text-left-aligned" },
-            { "name": "Text aligned - right", "value": "teaser-text-right-aligned" }
-           ]
-          }
+        }
       ]
     }
   ],
