@@ -188,8 +188,8 @@
           }
         },
         {
-          "id": "partner-logo",
           "title": "Partner Logo",
+          "id": "partner-logo",
           "plugins": {
             "xwalk": {
               "page": {
@@ -203,8 +203,8 @@
           }
         },
         {
-          "id": "partner-logo-item",
           "title": "Partner Logo Item",
+          "id": "partner-logo-item",
           "plugins": {
             "xwalk": {
               "page": {

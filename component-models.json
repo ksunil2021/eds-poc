@@ -310,11 +310,17 @@
     "fields": [
       {
         "component": "reference",
+        "valueType": "string",
         "name": "image",
         "label": "Image",
-        "valueType": "string",
-        "required": true,
-        "value": ""
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -326,16 +332,9 @@
       {
         "component": "text",
         "name": "url",
+        "value": "",
         "label": "URL",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "categories",
-        "label": "Categories",
-        "valueType": "string",
-        "value": ""
+        "valueType": "string"
       }
     ]
   },

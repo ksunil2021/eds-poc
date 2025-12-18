@@ -1,3 +1,5 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const logosGrid = document.createElement('div');
   logosGrid.className = 'partner-logos';
@@ -10,7 +12,8 @@ export default function decorate(block) {
   const activeFilters = new Set();
 
   [...block.children].forEach((item) => {
-    const img = item.querySelector('img')?.src || '';
+    const img = item.querySelector('img');
+    const imgSrc = img?.src || '';
     const link = item.querySelector('a')?.href || '#';
     const tags = [...item.querySelectorAll('p')]
       .flatMap((p) => p.textContent.split(','))
@@ -21,7 +24,18 @@ export default function decorate(block) {
     const div = document.createElement('div');
     div.className = 'partner-logo-item';
     div.dataset.tags = tags.join(',');
-    div.innerHTML = `<a href="${link}"><img src="${img}" alt="Partner logo"></a>`;
+    moveInstrumentation(item, div);
+
+    const anchor = document.createElement('a');
+    anchor.href = link;
+    const newImg = document.createElement('img');
+    newImg.src = imgSrc;
+    newImg.alt = 'Partner logo';
+    if (img) {
+      moveInstrumentation(img, newImg);
+    }
+    anchor.appendChild(newImg);
+    div.appendChild(anchor);
 
     logosGrid.appendChild(div);
     logoItems.push(div);

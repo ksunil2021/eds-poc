@@ -1,8 +1,8 @@
 {
   "definitions": [
     {
-      "id": "partner-logo",
       "title": "Partner Logo",
+      "id": "partner-logo",
       "plugins": {
         "xwalk": {
           "page": {
@@ -16,8 +16,8 @@
       }
     },
     {
-      "id": "partner-logo-item",
       "title": "Partner Logo Item",
+      "id": "partner-logo-item",
       "plugins": {
         "xwalk": {
           "page": {
@@ -37,11 +37,17 @@
       "fields": [
         {
           "component": "reference",
+          "valueType": "string",
           "name": "image",
           "label": "Image",
-          "valueType": "string",
-          "required": true,
-          "value": ""
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
         },
         {
           "component": "text",
@@ -53,16 +59,9 @@
         {
           "component": "text",
           "name": "url",
+          "value": "",
           "label": "URL",
-          "valueType": "string",
-          "value": ""
-        },
-        {
-          "component": "text",
-          "name": "categories",
-          "label": "Categories",
-          "valueType": "string",
-          "value": ""
+          "valueType": "string"
         }
       ]
     }
