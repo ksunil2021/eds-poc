@@ -149,7 +149,6 @@ export async function decorateDMImages(block) {
     }
   });
 }
-}
 
 /**
  * load fonts.css and set a session storage flag
