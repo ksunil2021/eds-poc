@@ -22,7 +22,7 @@ export default async function decorate(block) {
   }
   blockContainer.append(quoteImage);
   blockContainer.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+    const optimizedPic = createOptimizedPicture(img.src, img.alt);
     img.closest('picture').replaceWith(optimizedPic);
   });
   // Create and populate quote-text div
