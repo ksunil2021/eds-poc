@@ -595,6 +595,14 @@ async function loadBlock(block) {
         })();
       });
       await Promise.all([cssLoaded, decorationComplete]);
+   try {
+        const { decorateDMImages } = await import('./scripts.js');
+        decorateDMImages(block);
+        console.log(`Applied global image decoration for ${blockName}`);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(`failed to apply global image decoration for ${blockName}`, error);
+      }    
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(`failed to load block ${blockName}`, error);

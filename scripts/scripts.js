@@ -44,6 +44,108 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
+async function fetchCropConfig() {
+  window.cropConfig = window.cropConfig || {};
+  if (!window.cropConfig['block-config']) {
+    window.cropConfig['block-config'] = new Promise((resolve) => {
+      fetch('/block-image-config/block-config.json')
+        .then((resp) => {
+          if (resp.ok) {
+            return resp.json();
+          }
+          return {};
+        })
+        .then((json) => {
+          const config = {};
+          // Convert to BLOCK_IMAGE_CROP_SIZES format
+          json.data
+            .filter((item) => item.Key && item.Large && item.Small)
+            .forEach((item) => {
+              config[item.Key] = {
+                large: item.Large,
+                small: item.Small,
+              };
+            });
+          window.cropConfig['block-config'] = config;
+          resolve(window.cropConfig['block-config']);
+        })
+        .catch(() => {
+          // error loading config
+          window.cropConfig['block-config'] = {};
+          resolve(window.cropConfig['block-config']);
+        });
+    });
+  }
+  return window.cropConfig['block-config'];
+}
+/**
+ * Gets the extension of a URL.
+ * @param {string} url The URL
+ * @returns {string} The extension
+ */
+function getUrlExtension(url) {
+  return url.split(/[#?]/)[0].split('.').pop().trim();
+}
+
+/**
+ * Convert Image anchor tag into picture tag (delivery url).
+ * @param {Element} block The block element
+ */
+export async function decorateDMImages(block) {
+  // Fetch block configuration from DA spreadsheet
+  const blockImageCropSizes = await fetchCropConfig();
+
+  // Determine block name and get crop sizes
+  const blockName = block.dataset.blockName || block.classList[0] || 'default';
+  const cropSizes = blockImageCropSizes[blockName] || blockImageCropSizes.default;
+  const large = cropSizes?.large;
+  const small = cropSizes?.small;
+
+  block.querySelectorAll('a[href^="https://delivery-p"], a[href*="assets.eplusits.com"]:not([href*="/original/"])').forEach((a) => {
+    const url = new URL(a.href);
+    const ext = getUrlExtension(a.href);
+    if (url.hostname.endsWith('.adobeaemcloud.com') && (ext && ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext.toLowerCase()))) {
+      const pic = document.createElement('picture');
+
+      // Desktop (>= 900px) - WebP
+      const sourceDesktopWebp = document.createElement('source');
+      sourceDesktopWebp.type = 'image/webp';
+      sourceDesktopWebp.srcset = `${url}?smartcrop=${large}`;
+      sourceDesktopWebp.media = '(min-width: 900px)';
+
+      // Desktop (>= 900px) - Fallback
+      const sourceDesktopFallback = document.createElement('source');
+      sourceDesktopFallback.srcset = `${url}?smartcrop=${large}`;
+      sourceDesktopFallback.media = '(min-width: 900px)';
+
+      // Tablet (>= 600px) - WebP
+      const sourceTabletWebp = document.createElement('source');
+      sourceTabletWebp.type = 'image/webp';
+      sourceTabletWebp.srcset = `${url}?smartcrop=${small}`;
+      sourceTabletWebp.media = '(min-width: 600px)';
+
+      // Tablet (>= 600px) - Fallback
+      const sourceTabletFallback = document.createElement('source');
+      sourceTabletFallback.srcset = `${url}?smartcrop=${small}`;
+      sourceTabletFallback.media = '(min-width: 600px)';
+
+      // Mobile (< 600px) - fallback img
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = `${url}?smartcrop=${small}`;
+      if (a.title) {
+        img.setAttribute('alt', a.title);
+      }
+
+      pic.appendChild(sourceDesktopWebp);
+      pic.appendChild(sourceDesktopFallback);
+      pic.appendChild(sourceTabletWebp);
+      pic.appendChild(sourceTabletFallback);
+      pic.appendChild(img);
+      a.replaceWith(pic);
+    }
+  });
+}
 }
 
 /**
