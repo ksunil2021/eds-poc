@@ -1,8 +1,11 @@
+import { createOptimizedPicture } from '../../scripts/aem';
+import { moveInstrumentation } from '../../scripts/scripts';
+
 export default async function decorate(block) {
   const rows = [...block.children];
 
   // Extract content from row structure (each row has a cell div)
-  const imageRow = rows[0]?.querySelector('a');
+  const imageRow = rows[0]?.querySelector('picture');
   const quoteTextRow = rows[1]?.querySelector('p');
   const brandNameRow = rows[2]?.querySelector('p');
   const clientNameRow = rows[3]?.querySelector('p');
@@ -13,14 +16,15 @@ export default async function decorate(block) {
 
   // Create and populate quote-image div
   const quoteImage = document.createElement('div');
-  const image = document.createElement('picture');
-  image.setAttribute('href', imageRow);
   quoteImage.classList.add('quote-image');
   if (imageRow) {
-    quoteImage.append(image);
+    quoteImage.append(imageRow);
   }
   blockContainer.append(quoteImage);
-
+  blockContainer.querySelectorAll('picture > img').forEach((img) => {
+    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+    img.closest('picture').replaceWith(optimizedPic);
+  });
   // Create and populate quote-text div
   const quoteText = document.createElement('div');
   quoteText.classList.add('quote-text');
