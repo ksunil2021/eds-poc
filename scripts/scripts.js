@@ -44,6 +44,8 @@ export function moveInstrumentation(from, to) {
       .map(({ nodeName }) => nodeName)
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
+}
+
 async function fetchCropConfig() {
   window.cropConfig = window.cropConfig || {};
   if (!window.cropConfig['block-config']) {
@@ -78,6 +80,7 @@ async function fetchCropConfig() {
   }
   return window.cropConfig['block-config'];
 }
+
 /**
  * Gets the extension of a URL.
  * @param {string} url The URL
